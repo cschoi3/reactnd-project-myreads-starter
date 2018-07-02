@@ -14,7 +14,7 @@ class BooksApp extends React.Component {
 	componentDidMount () {
 		BooksAPI.getAll()
 			.then((books) => {
-					console.log('hello?', books)
+					// console.log('hello?', books)
 				this.setState(() => ({
 					books
 				}))
@@ -28,10 +28,23 @@ class BooksApp extends React.Component {
 		})
 	}
 
+	changeShelf = (book, changeShelfTo) => {
+		const { books } = this.state;
+		const { id } = book;
+		const booksUpdated = changeBooksCategory(books, changeShelfTo, id);
+
+		BooksAPI.update(book, changeShelfTo)
+			.then(() => {})
+
+		this.setState((prevState) => ({
+			books: booksUpdated
+		}))
+	}
+
 
 	render() {
 		const { books } = this.state;
-		
+
 		return (
 			<div className="app">
 				<Route path='/search' render={() => (<SearchPage/>)}/>
@@ -42,9 +55,9 @@ class BooksApp extends React.Component {
 						</div>
 						<div className="list-books-content">
 							<div>
-								<BookShelf bookshelfTitle='Currently Reading' books={this.filterBy(books, 'currentlyReading')}/>
-								<BookShelf bookshelfTitle='Want to Read' books={this.filterBy(books, 'wantToRead')}/>
-								<BookShelf bookshelfTitle='Read' books={this.filterBy(books, 'read')}/>
+								<BookShelf bookshelfTitle='Currently Reading' books={this.filterBy(books, 'currentlyReading')} changeShelf={this.changeShelf}/>
+								<BookShelf bookshelfTitle='Want to Read' books={this.filterBy(books, 'wantToRead')} changeShelf={this.changeShelf}/>
+								<BookShelf bookshelfTitle='Read' books={this.filterBy(books, 'read')} changeShelf={this.changeShelf}/>
 							</div>
 						</div>
 						<div className="open-search">
@@ -56,5 +69,15 @@ class BooksApp extends React.Component {
 		)
 	}
 }
+
+var changeBooksCategory = function changeBooksCategory (books, changeShelfTo, bookId) {
+	return books.map((book) => {
+		if(book.id === bookId) {
+			book.shelf = changeShelfTo;
+		}
+		return book;
+	})
+}
+
 
 export default BooksApp
