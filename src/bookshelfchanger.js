@@ -7,6 +7,11 @@ class BookShelfChanger extends Component {
 		value: this.props.shelf
 	};
 
+	/*
+	calls parent changeShelf function with selected shelf value
+	changeShelf is passed from BooksApp -> BookShelf -> Book -> BookShelfChanger,
+	or passed from BooksApp -> SearchPage -> Book -> BookShelfChanger
+	*/
 	handleChange = (event) => {
 
 		const {book, changeShelf} = this.props;
@@ -37,7 +42,7 @@ class BookShelfChanger extends Component {
 BookShelfChanger.propTypes = {
 	book: PropTypes.object.isRequired,
 	changeShelf: PropTypes.func.isRequired,
-	shelf: PropTypes.string.isRequired
+	shelf: PropTypes.string
 };
 
 export default BookShelfChanger;

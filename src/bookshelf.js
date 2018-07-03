@@ -4,7 +4,6 @@ import Book from './book';
 
 const BookShelf = ({ bookshelfTitle, books, changeShelf }) => {
 
-	// console.log('books and title', bookshelfTitle, books )
 	return (
 		<div className="bookshelf">
 			<h2 className="bookshelf-title">{bookshelfTitle}</h2>
