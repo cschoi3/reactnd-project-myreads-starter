@@ -9,7 +9,7 @@ class BooksApp extends React.Component {
 
 	state = {
 		books: []
-	}
+	};
 
 	componentDidMount () {
 		BooksAPI.getAll()
@@ -26,7 +26,7 @@ class BooksApp extends React.Component {
 		return arr.filter((ele) => {
 			return ele.shelf === by;
 		})
-	}
+	};
 
 	changeShelf = (book, changeShelfTo) => {
 		const { books } = this.state;
@@ -47,7 +47,7 @@ class BooksApp extends React.Component {
 				books: booksUpdated
 			}))
 		}
-	}
+	};
 
 
 	render() {
@@ -55,7 +55,7 @@ class BooksApp extends React.Component {
 
 		return (
 			<div className="app">
-				<Route path='/search' render={() => (<SearchPage addBook={this.addBook} changeShelf={this.changeShelf}/>)}/>
+				<Route path='/search' render={() => (<SearchPage changeShelf={this.changeShelf}/>)}/>
 				<Route exact path='/' render={() => (
 					<div className="list-books">
 						<div className="list-books-title">
@@ -82,7 +82,7 @@ var checkBookExists = function checkBookExists (books, bookId) {
 	return books.some((book) => {
 		return book.id === bookId;
 	})
-}
+};
 
 var changeBooksCategory = function changeBooksCategory (books, changeShelfTo, bookId) {
 	return books.map((book) => {
@@ -91,7 +91,7 @@ var changeBooksCategory = function changeBooksCategory (books, changeShelfTo, bo
 		}
 		return book;
 	})
-}
+};
 
 
 

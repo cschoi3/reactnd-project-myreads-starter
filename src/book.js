@@ -20,13 +20,21 @@ const Book = ({ book, changeShelf }) => {
 			</div>
 			<div className="book-title">{title}</div>
 			<div className="book-authors">
-				{authors ? 
-					authors.map((author) => (
-						<div key={`${author}${id}`}>{author}</div>
-					)) : <div></div>
+				{
+					authors ? authors.map((author) => {
+						return (
+							<div key={`${author}${id}`}>
+								{author}
+							</div>)
+					}) : <div></div>
 				}
 			</div>
 		</div>)
 }
+
+Book.propTypes = {
+	book: PropTypes.object.isRequired,
+	changeShelf: PropTypes.func.isRequired
+};
 
 export default Book;

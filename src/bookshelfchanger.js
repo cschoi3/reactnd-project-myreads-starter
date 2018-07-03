@@ -5,10 +5,10 @@ class BookShelfChanger extends Component {
 
 	state = {
 		value: this.props.shelf
-	}
+	};
 
 	handleChange = (event) => {
-		console.log('this is event',event)
+
 		const {book, changeShelf} = this.props;
 		const val = event.target.value;
 
@@ -17,7 +17,8 @@ class BookShelfChanger extends Component {
 		this.setState((prevState) => ({
 			value: val
 		}))
-	}
+	};
+
 
 	render() {
 		
@@ -32,5 +33,11 @@ class BookShelfChanger extends Component {
 		</div>);
 	}
 }
+
+BookShelfChanger.propTypes = {
+	book: PropTypes.object.isRequired,
+	changeShelf: PropTypes.func.isRequired,
+	shelf: PropTypes.string.isRequired
+};
 
 export default BookShelfChanger;

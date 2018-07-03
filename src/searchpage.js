@@ -9,7 +9,7 @@ class SearchPage extends Component {
 	state = {
 		query: '',
 		books: []
-	}
+	};
 
 	handleChange = (query) => {
 
@@ -21,7 +21,7 @@ class SearchPage extends Component {
 		this.setState((prevState) => ({
 			query
 		}))
-	}
+	};
 
 	updateBooks = (books) => {
 		books = books ? books : [];
@@ -29,7 +29,7 @@ class SearchPage extends Component {
 		this.setState((prevState) => ({
 			books
 		}))
-	}
+	};
 
 	render() {
 		const {books, query} = this.state;
@@ -68,5 +68,9 @@ class SearchPage extends Component {
 			</div>)
 	}
 }
+
+SearchPage.propTypes = {
+	changeShelf: PropTypes.func.isRequired
+};
 
 export default SearchPage;
