@@ -22,7 +22,7 @@ class BooksApp extends React.Component {
 		}) 
 	}
 
-	/*
+	/**
 	used to filter the books array from api by shelf,
 	takes a collection of books (array of objects), filters by shelf name (string),
 	given: filterby(
@@ -36,7 +36,7 @@ class BooksApp extends React.Component {
 		})
 	};
 
-	/*
+	/**
 	function to change books location and update book on API
 	takes a book (object), and shelf name (string),
 	given: changeShelf(
@@ -56,7 +56,7 @@ class BooksApp extends React.Component {
 		BooksAPI.update(book, changeShelfTo)
 			.then(() => {})
 
-		/*
+		/**
 		if conditional to account for states where
 		book does or does not exist on the this.state.books collection,
 		if it doesn't concat book into the collection,

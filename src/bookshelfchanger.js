@@ -7,7 +7,7 @@ class BookShelfChanger extends Component {
 		value: this.props.shelf
 	};
 
-	/*
+	/**
 	calls parent changeShelf function with selected shelf value
 	changeShelf is passed from BooksApp -> BookShelf -> Book -> BookShelfChanger,
 	or passed from BooksApp -> SearchPage -> Book -> BookShelfChanger
@@ -23,8 +23,6 @@ class BookShelfChanger extends Component {
 			value: val
 		}))
 	};
-//current issue: book does not retain its shelf state from the api because
-//when the select is clicked on the shelf is changed to currentlySelected?
 
 	render() {
 		

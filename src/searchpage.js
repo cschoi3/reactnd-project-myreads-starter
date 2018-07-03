@@ -23,7 +23,7 @@ class SearchPage extends Component {
 		}) 
 	}
 
-	/*
+	/**
 	handles the query string on the search input element,
 	calls search function on BooksAPI and returns a collection
 	of books matching search query
@@ -41,7 +41,7 @@ class SearchPage extends Component {
 	};
 
 
-	/*
+	/**
 	updates the this.state.books collection with results
 	from BooksAPI.search
 	*/
