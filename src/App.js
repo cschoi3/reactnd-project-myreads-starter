@@ -80,7 +80,7 @@ class BooksApp extends React.Component {
 
 		return (
 			<div className="app">
-				<Route path='/search' render={() => (<SearchPage changeShelf={this.changeShelf}/>)}/>
+				<Route path='/search' render={() => (<SearchPage books={this.state.books} changeShelf={this.changeShelf}/>)}/>
 				<Route exact path='/' render={() => (
 					<div className="list-books">
 						<div className="list-books-title">
@@ -104,14 +104,14 @@ class BooksApp extends React.Component {
 }
 
 //checks for if book does or does not exist on the this.state.books collection
-var checkBookExists = function checkBookExists (books, bookId) {
+const checkBookExists = function checkBookExists (books, bookId) {
 	return books.some((book) => {
 		return book.id === bookId;
 	})
 };
 
 //given the book exists in the current collection (books), change books shelf location
-var changeBooksCategory = function changeBooksCategory (books, changeShelfTo, bookId) {
+const changeBooksCategory = function changeBooksCategory (books, changeShelfTo, bookId) {
 	return books.map((book) => {
 		if(book.id === bookId) {
 			book.shelf = changeShelfTo;

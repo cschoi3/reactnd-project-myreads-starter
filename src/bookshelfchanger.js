@@ -16,14 +16,15 @@ class BookShelfChanger extends Component {
 
 		const {book, changeShelf} = this.props;
 		const val = event.target.value;
-
+		console.log("what is val on open", val, this.state.value)
 		changeShelf(book, event.target.value)
 		
 		this.setState((prevState) => ({
 			value: val
 		}))
 	};
-
+//current issue: book does not retain its shelf state from the api because
+//when the select is clicked on the shelf is changed to currentlySelected?
 
 	render() {
 		
@@ -42,7 +43,7 @@ class BookShelfChanger extends Component {
 BookShelfChanger.propTypes = {
 	book: PropTypes.object.isRequired,
 	changeShelf: PropTypes.func.isRequired,
-	shelf: PropTypes.string
+	shelf: PropTypes.string.isRequired
 };
 
 export default BookShelfChanger;

@@ -8,8 +8,20 @@ class SearchPage extends Component {
 
 	state = {
 		query: '',
-		books: []
+		books: [],
+		booksOnShelves: []
 	};
+
+	componentDidMount () {
+		
+		//get all books from API, sets to booksOnShelves on this.state
+		BooksAPI.getAll()
+			.then((booksOnShelves) => {
+				this.setState(() => ({
+					booksOnShelves
+				}))
+		}) 
+	}
 
 	/*
 	handles the query string on the search input element,
@@ -34,7 +46,10 @@ class SearchPage extends Component {
 	from BooksAPI.search
 	*/
 	updateBooks = (books) => {
-		books = books ? books : [];
+		
+		const { booksOnShelves } = this.state;
+		books = books ? mapBooksOnShelvesToBooks(booksOnShelves, books) : [];
+		
 		this.setState((prevState) => ({
 			books
 		}))
@@ -60,11 +75,13 @@ class SearchPage extends Component {
 					<ol className="books-grid">
 						{
 							books.length > 0 ? books.map((book) => {
+								console.log('this is book', book)
 							return (
 								<li key={book.id}>
 									<Book
 										book={book}
 										changeShelf={changeShelf}
+										shelf={book.shelf}
 									/>
 								</li>
 								)
@@ -74,6 +91,22 @@ class SearchPage extends Component {
 				</div>
 			</div>)
 	}
+}
+
+/**
+books returned from BooksAPI do not contain a shelf property
+mapBooksOnShelvesToBooks reconciles the results from BooksAPI.search
+with the books (and their shelf properties) on the main page/from BooksAPI.getAll
+*/
+const mapBooksOnShelvesToBooks = function mapBooksOnShelvesToBooks (booksOnShelves, books) {
+	return books.map((book)=>{
+		booksOnShelves.forEach((bk) => {
+			if(bk.id === book.id) {
+				book.shelf = bk.shelf;
+			}
+		})
+		return book;
+	})
 }
 
 SearchPage.propTypes = {
