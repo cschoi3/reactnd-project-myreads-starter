@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Link } from 'react-router-dom';
 import * as BooksAPI from './BooksAPI'
 import './App.css';
 import BookShelf from './bookshelf';
@@ -31,14 +31,22 @@ class BooksApp extends React.Component {
 	changeShelf = (book, changeShelfTo) => {
 		const { books } = this.state;
 		const { id } = book;
-		const booksUpdated = changeBooksCategory(books, changeShelfTo, id);
+		
+		book.shelf = changeShelfTo;
 
 		BooksAPI.update(book, changeShelfTo)
 			.then(() => {})
 
-		this.setState((prevState) => ({
-			books: booksUpdated
-		}))
+		if(!checkBookExists(books, id)){
+			this.setState((prevState) => ({
+				books: [...prevState.books, book]
+			}))
+		} else {
+			const booksUpdated = changeBooksCategory(books, changeShelfTo, id);
+			this.setState((prevState) => ({
+				books: booksUpdated
+			}))
+		}
 	}
 
 
@@ -47,7 +55,7 @@ class BooksApp extends React.Component {
 
 		return (
 			<div className="app">
-				<Route path='/search' render={() => (<SearchPage/>)}/>
+				<Route path='/search' render={() => (<SearchPage addBook={this.addBook} changeShelf={this.changeShelf}/>)}/>
 				<Route exact path='/' render={() => (
 					<div className="list-books">
 						<div className="list-books-title">
@@ -61,13 +69,19 @@ class BooksApp extends React.Component {
 							</div>
 						</div>
 						<div className="open-search">
-							<a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
+							<Link to='/search'>Add a book</Link>
 						</div>
 					</div>
 				)}/>
 			</div>
 		)
 	}
+}
+
+var checkBookExists = function checkBookExists (books, bookId) {
+	return books.some((book) => {
+		return book.id === bookId;
+	})
 }
 
 var changeBooksCategory = function changeBooksCategory (books, changeShelfTo, bookId) {
@@ -78,6 +92,7 @@ var changeBooksCategory = function changeBooksCategory (books, changeShelfTo, bo
 		return book;
 	})
 }
+
 
 
 export default BooksApp

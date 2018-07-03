@@ -8,9 +8,10 @@ class BookShelfChanger extends Component {
 	}
 
 	handleChange = (event) => {
-		
+		console.log('this is event',event)
 		const {book, changeShelf} = this.props;
 		const val = event.target.value;
+
 		changeShelf(book, event.target.value)
 		
 		this.setState((prevState) => ({

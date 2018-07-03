@@ -3,13 +3,15 @@ import PropTypes from 'prop-types';
 import BookShelfChanger from './bookshelfchanger';
 
 const Book = ({ book, changeShelf }) => {
-
+  // console.log('what is going on here', book)
 	const { imageLinks, authors, title, id, shelf } = book;
+
+	const image = imageLinks ? `url(${imageLinks.thumbnail})` : '';
 	// console.log('why', title)
 	return (
 		<div className="book">
 			<div className="book-top">
-				<div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${imageLinks.thumbnail})` }}></div>
+				<div className="book-cover" style={{ width: 128, height: 193, backgroundImage: image}}></div>
 					<BookShelfChanger
 						book={book}
 						changeShelf={changeShelf}
