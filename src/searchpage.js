@@ -34,6 +34,9 @@ class SearchPage extends Component {
 			.then((results) => {
 				this.updateBooks(results);
 			})
+			.catch((results) => {
+				this.updateBooks([]);
+			})
 
 		this.setState((prevState) => ({
 			query
@@ -48,8 +51,9 @@ class SearchPage extends Component {
 	updateBooks = (books) => {
 		
 		const { booksOnShelves } = this.state;
-		books = books ? mapBooksOnShelvesToBooks(booksOnShelves, books) : [];
-		
+
+		books = mapBooksOnShelvesToBooks(booksOnShelves, books);
+
 		this.setState((prevState) => ({
 			books
 		}))
@@ -75,15 +79,14 @@ class SearchPage extends Component {
 					<ol className="books-grid">
 						{
 							books.length > 0 ? books.map((book) => {
-								console.log('this is book', book)
-							return (
-								<li key={book.id}>
-									<Book
-										book={book}
-										changeShelf={changeShelf}
-										shelf={book.shelf}
-									/>
-								</li>
+								return (
+									<li key={book.id}>
+										<Book
+											book={book}
+											changeShelf={changeShelf}
+											shelf={book.shelf}
+										/>
+									</li>
 								)
 							}) : (<li></li>)
 						}
@@ -103,6 +106,8 @@ const mapBooksOnShelvesToBooks = function mapBooksOnShelvesToBooks (booksOnShelv
 		booksOnShelves.forEach((bk) => {
 			if(bk.id === book.id) {
 				book.shelf = bk.shelf;
+			} else if (!book.hasOwnProperty('shelf')) {
+				book.shelf = 'none'
 			}
 		})
 		return book;

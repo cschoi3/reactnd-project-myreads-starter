@@ -16,9 +16,9 @@ class BookShelfChanger extends Component {
 
 		const {book, changeShelf} = this.props;
 		const val = event.target.value;
-		console.log("what is val on open", val, this.state.value)
+
 		changeShelf(book, event.target.value)
-		
+
 		this.setState((prevState) => ({
 			value: val
 		}))
