@@ -97,7 +97,6 @@ class SearchPage extends Component {
 }
 
 /**
-books returned from BooksAPI do not contain a shelf property
 mapBooksOnShelvesToBooks reconciles the results from BooksAPI.search
 with the books (and their shelf properties) on the main page/from BooksAPI.getAll
 */
