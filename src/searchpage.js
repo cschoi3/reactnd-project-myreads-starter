@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import * as BooksAPI from './BooksAPI'; 
 import Book from './book';
 import PropTypes from 'prop-types';
+import debounce from 'lodash/debounce';
 
 class SearchPage extends Component {
 
@@ -13,7 +14,7 @@ class SearchPage extends Component {
 	};
 
 	componentDidMount () {
-		
+
 		//get all books from API, sets to booksOnShelves on this.state
 		BooksAPI.getAll()
 			.then((booksOnShelves) => {
@@ -23,6 +24,7 @@ class SearchPage extends Component {
 		}) 
 	}
 
+
 	/**
 	handles the query string on the search input element,
 	calls search function on BooksAPI and returns a collection
@@ -30,6 +32,17 @@ class SearchPage extends Component {
 	*/
 	handleChange = (query) => {
 
+		this.search(query);
+
+		this.setState((prevState) => ({
+			query
+		}))
+	};
+
+	/**
+	search call to BooksAPI
+	*/
+	search = debounce((query) => {
 		BooksAPI.search(query)
 			.then((results) => {
 				this.updateBooks(results);
@@ -37,11 +50,7 @@ class SearchPage extends Component {
 			.catch((results) => {
 				this.updateBooks([]);
 			})
-
-		this.setState((prevState) => ({
-			query
-		}))
-	};
+	}, 250);
 
 
 	/**
@@ -58,6 +67,7 @@ class SearchPage extends Component {
 			books
 		}))
 	};
+
 
 	render() {
 		const {books, query} = this.state;

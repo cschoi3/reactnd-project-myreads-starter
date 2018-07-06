@@ -2,29 +2,28 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Book from './book';
 
-const BookShelf = ({ bookshelfTitle, books, changeShelf }) => {
-
-	return (
-		<div className="bookshelf">
-			<h2 className="bookshelf-title">{bookshelfTitle}</h2>
-			<div className="bookshelf-books">
-				<ol className="books-grid">
-					{
-						books.length > 0 ? books.map((book) => {
-							return (
-								<li key={book.id}>
-									<Book
-										book={book}
-										changeShelf={changeShelf}
-									/>
-								</li>
-							)
-						}) : (<li></li>)
-					}
-				</ol>
-			</div>
-		</div>);
-}
+const BookShelf = ({ bookshelfTitle, books, changeShelf }) => (
+	
+	<div className="bookshelf">
+		<h2 className="bookshelf-title">{bookshelfTitle}</h2>
+		<div className="bookshelf-books">
+			<ol className="books-grid">
+				{
+					books.length > 0 ? books.map((book) => {
+						return (
+							<li key={book.id}>
+								<Book
+									book={book}
+									changeShelf={changeShelf}
+								/>
+							</li>
+						)
+					}) : (<li></li>)
+				}
+			</ol>
+		</div>
+	</div>
+);
 
 BookShelf.propTypes = {
 	bookshelfTitle: PropTypes.string.isRequired,
